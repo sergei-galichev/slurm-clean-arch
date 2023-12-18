@@ -3,6 +3,7 @@ module slurm-clean-arch
 go 1.21.3
 
 require (
+	github.com/google/uuid v1.5.0
 	github.com/jackc/pgx/v4 v4.18.1
 	github.com/pkg/errors v0.9.1
 )
