@@ -9,16 +9,13 @@ func (uc *UseCase) CreateContactIntoGroup(
 	groupID uuid.UUID,
 	contacts ...*contact.Contact,
 ) ([]*contact.Contact, error) {
-	// TODO implement me
-	panic("implement me")
+	return uc.adapterStorage.CreateContactIntoGroup(groupID, contacts...)
 }
 
 func (uc *UseCase) AddContactToGroup(groupID, contactID uuid.UUID) error {
-	// TODO implement me
-	panic("implement me")
+	return uc.adapterStorage.AddContactToGroup(groupID, contactID)
 }
 
 func (uc *UseCase) DeleteContactFromGroup(groupID, contactID uuid.UUID) error {
-	// TODO implement me
-	panic("implement me")
+	return uc.adapterStorage.DeleteContactFromGroup(groupID, contactID)
 }
