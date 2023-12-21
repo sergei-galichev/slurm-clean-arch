@@ -8,8 +8,12 @@ import (
 )
 
 func init() {
+	viper.SetConfigName(".env")
+	viper.SetConfigType("dotenv")
+	viper.AddConfigPath(".")
+	viper.AutomaticEnv()
+
 	viper.SetDefault("HTTP_PORT", 8080)
-	viper.SetDefault("HTTP_HOST", "127.0.0.1")
 	viper.SetDefault("IS_PRODUCTION", "false")
 }
 
@@ -45,8 +49,7 @@ func (d *Delivery) SetOptions(options Options) {
 func (d *Delivery) Run() error {
 	return d.router.Run(
 		fmt.Sprintf(
-			"%s:%d",
-			viper.GetString("HTTP_HOST"),
+			":%d",
 			uint16(viper.GetUint("HTTP_PORT")),
 		),
 	)
