@@ -23,11 +23,11 @@ func main() {
 	defer conn.Pool.Close()
 
 	var (
-		repoStorage  = repositoryStorage.New(conn.Pool, repositoryStorage.Options{})
-		ucContact    = useCaseContact.New(repoStorage, useCaseContact.Options{})
-		ucGroup      = useCaseGroup.New(repoStorage, useCaseGroup.Options{})
-		_            = deliveryGrpc.New(ucContact, ucGroup, deliveryGrpc.Options{})
-		listenerHttp = deliveryHttp.New(ucContact, ucGroup, deliveryHttp.Options{})
+		repoStorage, _ = repositoryStorage.New(conn.Pool, repositoryStorage.Options{})
+		ucContact      = useCaseContact.New(repoStorage, useCaseContact.Options{})
+		ucGroup        = useCaseGroup.New(repoStorage, useCaseGroup.Options{})
+		_              = deliveryGrpc.New(ucContact, ucGroup, deliveryGrpc.Options{})
+		listenerHttp   = deliveryHttp.New(ucContact, ucGroup, deliveryHttp.Options{})
 	)
 
 	go func() {
