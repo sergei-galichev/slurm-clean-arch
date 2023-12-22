@@ -5,12 +5,16 @@ import (
 	"fmt"
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v4/pgxpool"
+	_ "github.com/jackc/pgx/v4/stdlib"
 	"github.com/pressly/goose/v3"
 	"github.com/spf13/viper"
 )
 
 func init() {
-	viper.SetDefault("MIGRATIONS_DIR", "./services/contact/internal/repository/storage/postgres/migrations")
+	viper.SetDefault(
+		"MIGRATIONS_DIR",
+		"./services/contact/internal/repository/storage/postgres/migrations",
+	)
 }
 
 type Repository struct {
@@ -51,7 +55,7 @@ func (r *Repository) SetOptions(options Options) {
 
 func migrations(pool *pgxpool.Pool) (err error) {
 	ctx := context.Background()
-	db, err := goose.OpenDBWithDriver("postgres", pool.Config().ConnConfig.ConnString())
+	db, err := goose.OpenDBWithDriver("pgx", pool.Config().ConnConfig.ConnString())
 	if err != nil {
 		return err
 	}
@@ -63,7 +67,9 @@ func migrations(pool *pgxpool.Pool) (err error) {
 	}()
 
 	dir := viper.GetString("MIGRATIONS_DIR")
-	goose.SetTableName("contact_version")
+
+	goose.SetTableName("slurm.contact_version")
+
 	if err = goose.RunContext(ctx, "up", db, dir); err != nil {
 		return fmt.Errorf("goose %s error : %w", "up", err)
 	}
