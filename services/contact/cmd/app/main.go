@@ -8,7 +8,8 @@ import (
 	"slurm-clean-arch/pkg/store/postgres"
 	deliveryGrpc "slurm-clean-arch/services/contact/internal/delivery/grpc"
 	deliveryHttp "slurm-clean-arch/services/contact/internal/delivery/http"
-	repositoryStorage "slurm-clean-arch/services/contact/internal/repository/storage/postgres"
+	repositoryContact "slurm-clean-arch/services/contact/internal/repository/contact/postgres"
+	repositoryGroup "slurm-clean-arch/services/contact/internal/repository/group/postgres"
 	useCaseContact "slurm-clean-arch/services/contact/internal/usecase/contact"
 	useCaseGroup "slurm-clean-arch/services/contact/internal/usecase/group"
 	"syscall"
@@ -22,12 +23,26 @@ func main() {
 
 	defer conn.Pool.Close()
 
+	repoContact, err := repositoryContact.New(conn.Pool, repositoryContact.Options{})
+	if err != nil {
+		panic(err)
+	}
+	repoGroup, err := repositoryGroup.New(conn.Pool, repoContact, repositoryGroup.Options{})
+	if err != nil {
+		panic(err)
+	}
+
+	//repoStorage, err := repositoryStorage.New(conn.Pool, repositoryStorage.Options{})
+	//if err != nil {
+	//	panic(err)
+	//}
+
 	var (
-		repoStorage, _ = repositoryStorage.New(conn.Pool, repositoryStorage.Options{})
-		ucContact      = useCaseContact.New(repoStorage, useCaseContact.Options{})
-		ucGroup        = useCaseGroup.New(repoStorage, useCaseGroup.Options{})
-		_              = deliveryGrpc.New(ucContact, ucGroup, deliveryGrpc.Options{})
-		listenerHttp   = deliveryHttp.New(ucContact, ucGroup, deliveryHttp.Options{})
+		ucContact = useCaseContact.New(repoContact, useCaseContact.Options{})
+		ucGroup   = useCaseGroup.New(repoGroup, useCaseGroup.Options{})
+		//ucGroup        = useCaseGroup.New(repoStorage, useCaseGroup.Options{})
+		_            = deliveryGrpc.New(ucContact, ucGroup, deliveryGrpc.Options{})
+		listenerHttp = deliveryHttp.New(ucContact, ucGroup, deliveryHttp.Options{})
 	)
 
 	go func() {
