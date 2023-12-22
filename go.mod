@@ -4,6 +4,7 @@ go 1.21.3
 
 require (
 	github.com/Masterminds/squirrel v1.5.4
+	github.com/georgysavva/scany v1.2.1
 	github.com/gin-gonic/gin v1.9.1
 	github.com/golang/protobuf v1.5.3
 	github.com/google/uuid v1.5.0
