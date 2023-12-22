@@ -1,7 +1,7 @@
 package sort
 
 import (
-	"slurm-clean-arch/pkg/columncode"
+	"slurm-clean-arch/pkg/type/columncode"
 )
 
 type Sort struct {
