@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v4"
-	"slurm-clean-arch/pkg/queryparameter"
 	"slurm-clean-arch/pkg/tools/transaction"
+	"slurm-clean-arch/pkg/type/queryparameter"
 	"slurm-clean-arch/services/contact/internal/domain/contact"
 	"slurm-clean-arch/services/contact/internal/repository/storage/postgres/dao"
 )

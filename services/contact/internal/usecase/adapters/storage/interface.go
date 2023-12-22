@@ -2,7 +2,7 @@ package storage
 
 import (
 	"github.com/google/uuid"
-	"slurm-clean-arch/pkg/queryparameter"
+	"slurm-clean-arch/pkg/type/queryparameter"
 	"slurm-clean-arch/services/contact/internal/domain/contact"
 	"slurm-clean-arch/services/contact/internal/domain/group"
 )
