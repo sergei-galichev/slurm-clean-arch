@@ -7,6 +7,15 @@ import (
 	"slurm-clean-arch/services/contact/internal/usecase"
 )
 
+// @title Contact service on clean architecture
+// @version 1.0
+// @description Contact service on clean architecture
+// @license.name Tex R Us
+
+// @contact.name API Support
+// @contact.email s.galichev@texrus.com
+
+// @BasePath /
 func init() {
 	viper.SetConfigName(".env")
 	viper.SetConfigType("dotenv")
