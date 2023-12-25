@@ -4,8 +4,8 @@ import (
 	domainContact "slurm-clean-arch/services/contact/internal/domain/contact"
 )
 
-func ToContactResponse(response *domainContact.Contact) *ResponseContact {
-	return &ResponseContact{
+func ToContactResponse(response *domainContact.Contact) *ContactResponse {
+	return &ContactResponse{
 		ID:         response.ID().String(),
 		CreatedAt:  response.CreatedAt(),
 		ModifiedAt: response.ModifiedAt(),
