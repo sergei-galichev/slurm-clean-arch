@@ -13,7 +13,7 @@ var (
 )
 
 const (
-	MaxLength uint64 = 200
+	MaxLength uint8 = 200
 )
 
 type Age uint8
@@ -25,7 +25,7 @@ func (a Age) String() string {
 	)
 }
 
-func New(age uint64) (
+func New(age uint8) (
 	*Age,
 	error,
 ) {
